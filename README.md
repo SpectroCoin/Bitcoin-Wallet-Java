@@ -1,4 +1,4 @@
-SpectroCoin-Wallet-Java
+SpectroCoin Bitcoin Wallet API Java client
 ========================
 
 Sample Java Wallet API client for communicating with [SpectroCoin](https://spectrocoin.com) Wallet API service. [API specification](https://github.com/SpectroFinance/SpectroCoin-Wallet-API/).
