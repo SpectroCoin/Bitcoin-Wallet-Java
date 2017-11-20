@@ -17,6 +17,9 @@ public enum SendCurrencyStatus {
 	/**
 	 * receiver got money
 	 */
-	PAID();
-
+	PAID(),
+	/**
+	 * send failed
+	 */
+	FAILED();
 }

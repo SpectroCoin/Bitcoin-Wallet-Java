@@ -18,4 +18,7 @@ public class SendCurrency {
 	@JsonProperty("receiver")
 	private String receiver;
 
+	@JsonProperty("message")
+	private String message;
+
 }

@@ -147,4 +147,14 @@ public class SpectroCoinWalletClient extends BaseClient {
 		return this.process(null, url, HttpMethod.GET, GetNewCryptoAddressResponse.class);
 	}
 
+	/**
+	 * <b>GET /wallet/send/status/{paymentId}</b> <br><br>
+	 * Method used to get crypto payment info
+	 * @return crypto payment info
+	 * @throws ValidationException
+	 */
+	public GetCryptoSendInfoResponse getCryptoSendInfo(GetCryptoSendInfoRequest request) throws ValidationException {
+		String url = CRYPTO_SEND_INFO.replace("{paymentId}", request.getPaymentId().toString());
+		return this.process(null, url, HttpMethod.GET, GetCryptoSendInfoResponse.class);
+	}
 }

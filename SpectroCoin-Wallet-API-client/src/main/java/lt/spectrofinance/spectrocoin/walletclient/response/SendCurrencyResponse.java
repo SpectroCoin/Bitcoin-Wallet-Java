@@ -1,31 +1,17 @@
 package lt.spectrofinance.spectrocoin.walletclient.response;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
-import lt.spectrofinance.spectrocoin.walletclient.constants.SendCurrencyStatus;
-
-import java.math.BigDecimal;
+import lt.spectrofinance.spectrocoin.walletclient.data.SendCurrencyData;
 
 /**
  * Created by UAB Spectro Finance
  * developed by NerijusT on 2016-05-02.
  */
 @Data
-public class SendCurrencyResponse {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class SendCurrencyResponse extends SendCurrencyData {
 
-	@JsonProperty("paymentId")
-	private Long paymentId;
-
-	@JsonProperty("withdrawAmount")
-	private BigDecimal withdrawAmount;
-
-	@JsonProperty("receiveAmount")
-	private BigDecimal receiveAmount;
-
-	@JsonProperty("currency")
-	private String currency;
-
-	@JsonProperty("status")
-	private SendCurrencyStatus status;
+	private SendCurrencyData[] sendCurrencyData;
 
 }
