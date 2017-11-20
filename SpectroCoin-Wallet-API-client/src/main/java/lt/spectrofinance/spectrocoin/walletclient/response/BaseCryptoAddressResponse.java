@@ -15,4 +15,7 @@ public class BaseCryptoAddressResponse {
 
 	@JsonProperty("currency")
 	private String currency;
+
+	@JsonProperty("message")
+	private String message;
 }

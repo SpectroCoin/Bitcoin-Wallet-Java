@@ -45,6 +45,7 @@ public class BaseClient {
 	protected static String ACCOUNTS = "/accounts";
 	protected static String LAST_CRYPTO_ADDRESS = "/deposit/{currency}/last";
 	protected static String NEW_CRYPTO_ADDRESS = "/deposit/{currency}/fresh";
+	protected static String CRYPTO_SEND_INFO = "/send/status/{paymentId}";
 
 	//information
 	private String clientId;
@@ -69,6 +70,7 @@ public class BaseClient {
 
 		LAST_CRYPTO_ADDRESS = WALLET_URL + LAST_CRYPTO_ADDRESS;
 		NEW_CRYPTO_ADDRESS = WALLET_URL + NEW_CRYPTO_ADDRESS;
+		CRYPTO_SEND_INFO = WALLET_URL + CRYPTO_SEND_INFO;
 
 		this.clientId = clientId;
 		this.clientSecret = clientSecret;

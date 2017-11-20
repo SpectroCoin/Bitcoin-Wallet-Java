@@ -23,7 +23,7 @@ public class SpectroCoinWalletClientTest {
 	@BeforeClass
 	public static void setUp() throws Exception {
 		// TODO: update credentials
-		client = new SpectroCoinWalletClient("wallet_v0c2e9f4a10943a1ff4d05f9552e8a8d", "password", null, "1.0");
+		client = new SpectroCoinWalletClient("wallet_e65d80xxe20397d662c8359415e79d99", "pass", "user_account currency_exchange send_currency", "1.0");
 	}
 
 	@Test
@@ -98,6 +98,29 @@ public class SpectroCoinWalletClientTest {
 	}
 
 	@Test
+	public void testBulkSendCurrency() throws Exception {
+		SendCurrencyRequest sendCurrencyRequest = new SendCurrencyRequest();
+		sendCurrencyRequest.setCurrency("BTC");
+
+		SendCurrency sendCurrency = new SendCurrency();
+		sendCurrency.setAmount(new BigDecimal("0.00011"));
+		sendCurrency.setReceiver("user@spectrocoin.com");//todo: need to set receiver
+
+		SendCurrency sendCurrency1 = new SendCurrency();
+		sendCurrency1.setAmount(new BigDecimal("0.00012"));
+		sendCurrency1.setReceiver("user2@spectrocoin.com");//todo: need to set receiver
+
+		ArrayList<SendCurrency> list = new ArrayList<>();
+		list.add(sendCurrency);
+		list.add(sendCurrency1);
+		sendCurrencyRequest.setSendCurrencyList(list);
+		SendCurrencyResponse sendCurrencyResponse = client.sendCurrency(sendCurrencyRequest);
+		Assert.assertNotNull(sendCurrencyResponse);
+
+		System.out.println("sendCurrencyResponse = " + sendCurrencyResponse);
+	}
+
+	@Test
 	public void testBuyCurrency() throws Exception {
 		BuyCurrencyRequest buyCurrencyRequest = new BuyCurrencyRequest();
 		buyCurrencyRequest.setPayCurrency("EUR");
@@ -127,24 +150,24 @@ public class SpectroCoinWalletClientTest {
 	public void testGetLastCryptoAddress() throws Exception {
 
 		GetLastCryptoAddressRequest getLastCryptoAddressRequest = new GetLastCryptoAddressRequest();
-		getLastCryptoAddressRequest.setCurrency("BTC");
+		getLastCryptoAddressRequest.setCurrency("XEM");
 
 		GetLastCryptoAddressResponse lastCryptoAddress = client.getLastCryptoAddress(getLastCryptoAddressRequest);
 		Assert.assertNotNull(lastCryptoAddress);
 
-		System.out.println(String.format("Last %s address = %s", lastCryptoAddress.getCurrency(), lastCryptoAddress.getCryptoAddress()));
+		System.out.println(String.format("Last %s address = %s , message = %s", lastCryptoAddress.getCurrency(), lastCryptoAddress.getCryptoAddress(), lastCryptoAddress.getMessage()));
 	}
 
 	@Test
 	public void testGetNewCryptoAddress() throws Exception {
 
 		GetNewCryptoAddressRequest getNewCryptoAddressRequest = new GetNewCryptoAddressRequest();
-		getNewCryptoAddressRequest.setCurrency("DASH");
+		getNewCryptoAddressRequest.setCurrency("XEM");
 
 		GetNewCryptoAddressResponse lastCryptoAddress = client.getNewCryptoAddress(getNewCryptoAddressRequest);
 		Assert.assertNotNull(lastCryptoAddress);
 
-		System.out.println(String.format("Last %s address = %s", lastCryptoAddress.getCurrency(), lastCryptoAddress.getCryptoAddress()));
+		System.out.println(String.format("Last %s address = %s , message = %s", lastCryptoAddress.getCurrency(), lastCryptoAddress.getCryptoAddress(), lastCryptoAddress.getMessage()));
 	}
 
 	@Test(expected = ValidationException.class)
@@ -155,6 +178,32 @@ public class SpectroCoinWalletClientTest {
 
 		try {
 			client.getNewCryptoAddress(getNewCryptoAddressRequest);
+		} catch (ValidationException e) {
+			System.out.println("e = " + e);
+			throw e;
+		}
+	}
+
+	@Test
+	public void testGetCryptoSendInfo() throws Exception {
+		GetCryptoSendInfoRequest request = new GetCryptoSendInfoRequest();
+		request.setPaymentId(5768); //todo: need to set your payment id
+
+		GetCryptoSendInfoResponse response = client.getCryptoSendInfo(request);
+		Assert.assertNotNull(response);
+
+		System.out.println(String.format("PaymentId: %s ,Status: %s ,TransactionHash: %s ,withdrawAmount: %s ,receiver: %s ,message: %s ,receiveAmount: %s ," +
+				"currency: %s", response.getPaymentId(), response.getStatus(), response.getTransactionHash(), response.getWithdrawAmount(), response.getReceiver(),
+				response.getMessage(), response.getReceiveAmount(), response.getCurrency()));
+	}
+
+	@Test(expected = ValidationException.class)
+	public void testGetCryptoSendInfoBadPaymentId() throws Exception {
+		GetCryptoSendInfoRequest request = new GetCryptoSendInfoRequest();
+		request.setPaymentId(5728);
+
+		try {
+			client.getCryptoSendInfo(request);
 		} catch (ValidationException e) {
 			System.out.println("e = " + e);
 			throw e;
