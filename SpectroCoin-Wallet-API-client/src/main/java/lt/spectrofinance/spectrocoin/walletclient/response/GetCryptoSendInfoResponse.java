@@ -1,9 +1,11 @@
 package lt.spectrofinance.spectrocoin.walletclient.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.ToString;
 import lt.spectrofinance.spectrocoin.walletclient.constants.SendCurrencyStatus;
+import lt.spectrofinance.spectrocoin.walletclient.data.OutputInfo;
 
 import java.math.BigDecimal;
 
@@ -13,30 +15,27 @@ import java.math.BigDecimal;
  */
 @Data
 @ToString(callSuper = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class GetCryptoSendInfoResponse {
 
-	@JsonProperty("paymentId")
 	private Long paymentId;
 
-	@JsonProperty("status")
 	private SendCurrencyStatus status;
 
-	@JsonProperty("transactionHash")
 	private String transactionHash;
 
-	@JsonProperty("withdrawAmount")
 	private BigDecimal withdrawAmount;
 
-	@JsonProperty("receiver")
 	private String receiver;
 
-	@JsonProperty("message")
 	private String message;
 
-	@JsonProperty("receiveAmount")
 	private BigDecimal receiveAmount;
 
-	@JsonProperty("currency")
 	private String currency;
+
+	private String refId;
+
+	private OutputInfo[] outputData;
 
 }

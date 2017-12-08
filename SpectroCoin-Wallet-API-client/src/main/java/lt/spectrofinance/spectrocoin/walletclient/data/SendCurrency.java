@@ -21,4 +21,7 @@ public class SendCurrency {
 	@JsonProperty("message")
 	private String message;
 
+	@JsonProperty("refId")
+	private String refId;
+
 }
