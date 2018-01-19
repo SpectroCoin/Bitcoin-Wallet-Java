@@ -31,6 +31,7 @@ public class ErrorHelper {
 	public static final ErrorInfo SEND_CURRENCY_FAILED = new ErrorInfo(3027L, "Send currency failed");
 	public static final ErrorInfo FAILED_TO_GET_CRYPTO_PAYMENT = new ErrorInfo(3030L, "Failed to get crypto payment");
 	public static final ErrorInfo BAD_PAYMENT_ID = new ErrorInfo(3031L, "Bad payment id");
+	public static final ErrorInfo WITHDRAW_ALREADY_USED_REFID = new ErrorInfo(3032L, "You have already sent money with this refId");
 	public static final ErrorInfo USER_NOT_VERIFIED = new ErrorInfo(5003L, "User not verified");
 	public static final ErrorInfo ACCOUNT_NOT_FOUND = new ErrorInfo(6001L, "Member account not found for this user.");
 	public static final ErrorInfo EXCEEDS_USER_PAY_LIMIT = new ErrorInfo(7006L, "Exceeds user pay limit!");

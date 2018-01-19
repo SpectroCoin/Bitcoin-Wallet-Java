@@ -22,6 +22,8 @@ public class SendCurrencyData {
 
 	private String message;
 
+	private String refId;
+
 	private BigDecimal receiveAmount;
 
 	private String currency;

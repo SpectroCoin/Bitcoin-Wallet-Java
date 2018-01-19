@@ -23,7 +23,7 @@ public class SpectroCoinWalletClientTest {
 	@BeforeClass
 	public static void setUp() throws Exception {
 		// TODO: update credentials
-		client = new SpectroCoinWalletClient("wallet_e65d80xxe20397d662c8359415e79d99", "pass", "user_account currency_exchange send_currency", "1.0");
+		client = new SpectroCoinWalletClient("wallet_bee126747fc8000845748fe527ac47a0", "Testas123", "user_account currency_exchange send_currency", "1.0");
 	}
 
 	@Test
@@ -82,11 +82,12 @@ public class SpectroCoinWalletClientTest {
 	@Test
 	public void testSendCurrency() throws Exception {
 		SendCurrencyRequest sendCurrencyRequest = new SendCurrencyRequest();
-		sendCurrencyRequest.setCurrency("DASH");
+		sendCurrencyRequest.setCurrency("BTC");
 
 		SendCurrency sendCurrency = new SendCurrency();
-		sendCurrency.setAmount(new BigDecimal("1.11"));
+		sendCurrency.setAmount(new BigDecimal("0.0002"));
 		sendCurrency.setReceiver("user@spectrocoin.com");//todo: need to set receiver
+		//sendCurrency.setRefId("random1x3pCUqI"); //optional
 
 		ArrayList<SendCurrency> list = new ArrayList<>();
 		list.add(sendCurrency);
@@ -187,14 +188,12 @@ public class SpectroCoinWalletClientTest {
 	@Test
 	public void testGetCryptoSendInfo() throws Exception {
 		GetCryptoSendInfoRequest request = new GetCryptoSendInfoRequest();
-		request.setPaymentId(5768); //todo: need to set your payment id
+		request.setPaymentId(761); //todo: need to set your payment id
 
 		GetCryptoSendInfoResponse response = client.getCryptoSendInfo(request);
 		Assert.assertNotNull(response);
 
-		System.out.println(String.format("PaymentId: %s ,Status: %s ,TransactionHash: %s ,withdrawAmount: %s ,receiver: %s ,message: %s ,receiveAmount: %s ," +
-				"currency: %s", response.getPaymentId(), response.getStatus(), response.getTransactionHash(), response.getWithdrawAmount(), response.getReceiver(),
-				response.getMessage(), response.getReceiveAmount(), response.getCurrency()));
+		System.out.println(response);
 	}
 
 	@Test(expected = ValidationException.class)
